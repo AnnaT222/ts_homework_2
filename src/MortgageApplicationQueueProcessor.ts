@@ -1,29 +1,40 @@
-const WrongDataException = require('./exceptions/WrongDataException');
+const WrongDataException = require("./exceptions/WrongDataException");
 
+interface Customer {
+  updateBalance(amount: number): void;
+}
+
+interface CustomerRepository {
+  get(customerId: number): Customer | null;
+}
 class MortgageApplicationQueueProcessor {
-    constructor(customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+  customerRepository: CustomerRepository;
 
-    static MESSAGE_INVALID_CUSTOMER = 'Customer not found!';
+  constructor(customerRepository: CustomerRepository) {
+    this.customerRepository = customerRepository;
+  }
 
-    checkWrongData(customer){
-        if (!customer)
-            throw new WrongDataException(MortgageApplicationQueueProcessor.MESSAGE_INVALID_CUSTOMER);
-    }
+  static MESSAGE_INVALID_CUSTOMER: string = "Customer not found!";
 
-    processRequest(customerId, amountRequested) {
-        this.updateBalance(customerId, amountRequested);
-    }
-    updateBalance(customerId, amountRequested) {
-        const customer = this.getCustomer(customerId);
-        customer.updateBalance(amountRequested);
-    }
-    getCustomer(customerId) {
-        const customer = this.customerRepository.get(customerId);
-        this.checkWrongData(customer);
-        return customer;
-    }
+  checkWrongData(customer: Customer | null) {
+    if (!customer)
+      throw new WrongDataException(
+        MortgageApplicationQueueProcessor.MESSAGE_INVALID_CUSTOMER
+      );
+  }
+
+  processRequest(customerId: number, amountRequested: number): void {
+    this.updateBalance(customerId, amountRequested);
+  }
+  updateBalance(customerId: number, amountRequested: number): void {
+    const customer = this.getCustomer(customerId);
+    customer?.updateBalance(amountRequested);
+  }
+  getCustomer(customerId: number): Customer | null {
+    const customer = this.customerRepository.get(customerId);
+    this.checkWrongData(customer);
+    return customer;
+  }
 }
 
 module.exports = MortgageApplicationQueueProcessor;
