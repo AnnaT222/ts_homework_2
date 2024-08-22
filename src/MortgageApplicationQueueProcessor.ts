@@ -4,9 +4,11 @@ interface Customer {
   updateBalance(amount: number): void;
 }
 
+type NullableCustomer = Customer | null;
 interface CustomerRepository {
-  get(customerId: number): Customer | null;
+  get(customerId: number): NullableCustomer;
 }
+
 class MortgageApplicationQueueProcessor {
   customerRepository: CustomerRepository;
 
@@ -16,7 +18,7 @@ class MortgageApplicationQueueProcessor {
 
   static MESSAGE_INVALID_CUSTOMER: string = "Customer not found!";
 
-  checkWrongData(customer: Customer | null) {
+  checkWrongData(customer: NullableCustomer): void {
     if (!customer)
       throw new WrongDataException(
         MortgageApplicationQueueProcessor.MESSAGE_INVALID_CUSTOMER
@@ -30,7 +32,7 @@ class MortgageApplicationQueueProcessor {
     const customer = this.getCustomer(customerId);
     customer?.updateBalance(amountRequested);
   }
-  getCustomer(customerId: number): Customer | null {
+  getCustomer(customerId: number): NullableCustomer {
     const customer = this.customerRepository.get(customerId);
     this.checkWrongData(customer);
     return customer;
