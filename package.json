@@ -1,5 +1,5 @@
 {
-  "name": "clean-design-tasks-js",
+  "name": "clean-design-tasks",
   "version": "1.0.0",
   "description": "JS Clean Design practice",
   "scripts": {
@@ -8,7 +8,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^22.5.0",
     "mocha": "5.2.0",
-    "mocha-junit-reporter": "^2.0.0"
-  }
+    "mocha-junit-reporter": "^2.0.0",
+    "typescript": "^5.5.4"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
 }

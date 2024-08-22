@@ -1,7 +1,15 @@
 const NotEligibleForMortgageException = require("../exceptions/NotEligibleForMortgageException");
 
+
 module.exports = class Customer {
-    constructor(id, firstName, lastName, balance, badCreditHistoryCount) {
+    id:number;
+    firstName:string;
+    lastName:string;
+    balance:number;
+    badCreditHistoryCount:number;
+
+
+    constructor(id:number, firstName:string, lastName:string, balance:number, badCreditHistoryCount:number) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -9,7 +17,7 @@ module.exports = class Customer {
         this.badCreditHistoryCount = badCreditHistoryCount;
     }
 
-    updateBalance(amount) {
+    updateBalance(amount:number):void {
        if(this.isEligibleForMortgage(amount)){
            this.balance += amount;
        }else{
@@ -17,7 +25,7 @@ module.exports = class Customer {
        }
     }
 
-    isEligibleForMortgage(amountRequested) {
+    isEligibleForMortgage(amountRequested:number):boolean {
         let isEligibleForMortgage = false;
 
         if (this.badCreditHistoryCount === 0 && this.balance > 0)

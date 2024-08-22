@@ -1,5 +1,5 @@
 module.exports = class WrongDataException extends Error {
-    constructor(message) {
+    constructor(message:string) {
         super(message);
         this.name = 'WrongDataException';
     }
