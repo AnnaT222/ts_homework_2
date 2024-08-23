@@ -4,3 +4,4 @@ module.exports = class WrongDataException extends Error {
     this.name = "WrongDataException";
   }
 };
+

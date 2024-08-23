@@ -6,7 +6,7 @@ module.exports = class Customer {
   lastName: string;
   balance: number;
   badCreditHistoryCount: number;
-
+ 
   constructor(
     id: number,
     firstName: string,

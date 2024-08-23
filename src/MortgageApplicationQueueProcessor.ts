@@ -40,3 +40,4 @@ class MortgageApplicationQueueProcessor {
 }
 
 module.exports = MortgageApplicationQueueProcessor;
+

@@ -4,3 +4,4 @@ module.exports = class NotEligibleForMortgageException extends Error {
     this.name = "NotEligibleForMortgageException";
   }
 };
+
